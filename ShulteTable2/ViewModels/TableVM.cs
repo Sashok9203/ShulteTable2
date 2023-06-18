@@ -12,7 +12,9 @@ namespace ShulteTable2.ViewModels
     public class TableVM
     {
         private ObservableCollection<CellVM> cells = new ();
-    
+        private RelayCommand exitCommand;
+
+        public ICommand Exit => exitCommand;
         public IEnumerable<CellVM> Cells => cells;
 
         public const int EYE_NUMBER = 0;
@@ -21,6 +23,7 @@ namespace ShulteTable2.ViewModels
 
         public TableVM(int size)
         {
+            exitCommand = new((o) =>  exit());
             LastNumber = size * size - 1;
             GenerateCells();
         }
@@ -42,9 +45,14 @@ namespace ShulteTable2.ViewModels
             if (cNext != null) cNext.State = CellState.Current;
             else
             {
-                MessageBox.Show("Done");
+                exit();
                 GenerateCells();
             }
+        }
+
+        private void exit()
+        {
+            if (MessageBox.Show("Do you want to exit?","Exit",MessageBoxButton.YesNo) == MessageBoxResult.Yes) Application.Current.Shutdown();
         }
     }
 }

@@ -27,10 +27,14 @@
     <Window.DataContext>
         <ObjectDataProvider  ObjectType="{x:Type vms:TableVM}">
             <ObjectDataProvider.ConstructorParameters>
-                <sys:Int32>3</sys:Int32>
+                <sys:Int32> 5 </sys:Int32>
             </ObjectDataProvider.ConstructorParameters>
         </ObjectDataProvider>
     </Window.DataContext>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding Exit}"/>
+    </Window.InputBindings>
 
     <Border Style="{StaticResource OuterBorder}" MouseMove="BorderMouseMove">
         <Border Style="{StaticResource InnerBorder}">
