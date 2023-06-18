@@ -1,0 +1,46 @@
+﻿<Window x:Class="ShulteTable2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:ShulteTable2"
+        xmlns:vms="clr-namespace:ShulteTable2.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vms:TableVM}"
+        Height="300" Width="300"
+        ResizeMode="CanResizeWithGrip"  
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent" 
+        AllowsTransparency="True" 
+        MinHeight="300"
+        MinWidth="300">
+
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vms:CellVM}">
+            <Button Style="{StaticResource TableCell}"/>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <ObjectDataProvider  ObjectType="{x:Type vms:TableVM}">
+            <ObjectDataProvider.ConstructorParameters>
+                <sys:Int32>3</sys:Int32>
+            </ObjectDataProvider.ConstructorParameters>
+        </ObjectDataProvider>
+    </Window.DataContext>
+
+    <Border Style="{StaticResource OuterBorder}" MouseMove="BorderMouseMove">
+        <Border Style="{StaticResource InnerBorder}">
+            <ItemsControl ItemsSource="{Binding Cells}">
+                <ItemsControl.ItemsPanel >
+                    <ItemsPanelTemplate >
+                        <UniformGrid />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Border>
+    </Border>
+</Window>
