@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:vms="clr-namespace:ShulteTable2.ViewModels">
-    
+                    xmlns:vms="clr-namespace:ShulteTable2.ViewModels"
+                     xmlns:local="clr-namespace:ShulteTable2">
+
     <Style x:Key="OuterBorder" TargetType="{x:Type Border}">
         <Setter Property="Background" Value="#FFDDD3E7"/>
         <Setter Property="Padding" Value="10"/>
@@ -18,7 +19,8 @@
     </Style>
 
     <Style x:Key="TableCell" TargetType="{x:Type Button}">
-        <Setter Property="Command" Value="{Binding ClickCommand}"></Setter>
+        <Setter Property="Command"  Value="{Binding   Path = DataContext.ObjectInstance.ClickCommand ,RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow }}}"/>
+        <Setter Property="CommandParameter" Value="{Binding}"></Setter>
         <Setter Property="Content" Value="{Binding Number}"></Setter>
         <Setter Property="Margin" Value="0.6"></Setter>
         <Setter Property="RenderTransform">

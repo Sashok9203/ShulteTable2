@@ -13,9 +13,11 @@ namespace ShulteTable2.ViewModels
     {
         private ObservableCollection<CellVM> cells = new ();
         private RelayCommand exitCommand;
+        private RelayCommand clickCommand;
 
         public ICommand Exit => exitCommand;
         public IEnumerable<CellVM> Cells => cells;
+        public ICommand ClickCommand => clickCommand;
 
         public const int EYE_NUMBER = 0;
         public int FirstNumber { get; } = 1;
@@ -32,16 +34,18 @@ namespace ShulteTable2.ViewModels
         {
             if(cells.Count !=0)cells.Clear();
             for (int i = FirstNumber; i <= LastNumber; ++i)
-                 cells.Add(new(i, cellChangeed));
+                 cells.Add(new(i));
             cells[0].Current = true;
             this.cells.Shuffle();
             cells.Insert(cells.Count / 2, new CellVM(EYE_NUMBER, CellColor.White));
+            clickCommand = new((o) => { cellChangeed(o); });
         }
 
-        private void cellChangeed(CellVM cell)
+        private void cellChangeed(object cell)
         {
-            cell.Current = false;
-            CellVM? cNext = cells.FirstOrDefault(n => n.Number == cell.Number + 1);
+            CellVM? cCell = cell as CellVM;
+            cCell.Current = false;
+            CellVM? cNext = cells.FirstOrDefault(n => n.Number == cCell.Number + 1);
             if (cNext != null) cNext.Current = true;
             else
             {
