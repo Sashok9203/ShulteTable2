@@ -25,6 +25,7 @@ namespace ShulteTable2.ViewModels
 
         public TableVM(int size)
         {
+            clickCommand = new((o) => { cellChangeed(o); });
             exitCommand = new((o) =>  exit());
             LastNumber = size * size - 1;
             GenerateCells();
@@ -38,7 +39,7 @@ namespace ShulteTable2.ViewModels
             cells[0].Current = true;
             this.cells.Shuffle();
             cells.Insert(cells.Count / 2, new CellVM(EYE_NUMBER, CellColor.White));
-            clickCommand = new((o) => { cellChangeed(o); });
+           
         }
 
         private void cellChangeed(object cell)
