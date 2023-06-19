@@ -56,7 +56,7 @@
             
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding State}" Value="IsWrong"/>
+                    <Condition Binding="{Binding Current}" Value="False"/>
                     <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.EnterActions>
@@ -75,17 +75,23 @@
                 </MultiDataTrigger.EnterActions>
             </MultiDataTrigger>
 
-            <DataTrigger Binding="{Binding State}" Value="Pressed">
-                <DataTrigger.EnterActions>
-                    <BeginStoryboard>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Current}" Value="True"/>
+                    <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.EnterActions>
+                    <BeginStoryboard >
                         <Storyboard>
                             <ColorAnimation Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"  To="#68008b"  Duration="0:0:0:0.12"  />
                             <ColorAnimation Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" To="DarkMagenta" Duration="0:0:0:0.12"/>
                             <ThicknessAnimation Storyboard.TargetProperty="BorderThickness"  To="0,4,0,0"  Duration="0:0:0:0.12"/>
                         </Storyboard>
                     </BeginStoryboard>
-                </DataTrigger.EnterActions>
-            </DataTrigger>
+                </MultiDataTrigger.EnterActions>
+            </MultiDataTrigger>
+
+           
            
             <DataTrigger Binding="{Binding Number}" Value="{x:Static vms:TableVM.EYE_NUMBER}">
                 <Setter Property="Content">

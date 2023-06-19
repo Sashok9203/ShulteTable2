@@ -33,16 +33,16 @@ namespace ShulteTable2.ViewModels
             if(cells.Count !=0)cells.Clear();
             for (int i = FirstNumber; i <= LastNumber; ++i)
                  cells.Add(new(i, cellChangeed));
-            cells[0].State = CellState.Current;
+            cells[0].Current = true;
             this.cells.Shuffle();
             cells.Insert(cells.Count / 2, new CellVM(EYE_NUMBER, CellColor.White));
         }
 
         private void cellChangeed(CellVM cell)
         {
-            cell.State = CellState.IsWrong;
+            cell.Current = false;
             CellVM? cNext = cells.FirstOrDefault(n => n.Number == cell.Number + 1);
-            if (cNext != null) cNext.State = CellState.Current;
+            if (cNext != null) cNext.Current = true;
             else
             {
                 exit();

@@ -9,11 +9,7 @@ namespace ShulteTable2.ViewModels
         White, Green, Purple, Yellow, Blue, Red
     };
 
-    public enum CellState
-    {
-        Current, IsWrong,Pressed
-    }
-
+   
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class CellVM
     {
@@ -23,7 +19,7 @@ namespace ShulteTable2.ViewModels
 
         public int Number { get; }
         public CellColor Color { get; set; }
-        public CellState State { get; set; }
+        public bool Current { get; set; }
         public ICommand ClickCommand => clickCommand;
     
 
@@ -33,19 +29,10 @@ namespace ShulteTable2.ViewModels
         {
             Number = number;
             Color = color;
-            State = CellState.IsWrong;
-            clickCommand = new((o) => mouseClick());
+            Current = false;
+            clickCommand = new((o) => { if (Current) changed?.Invoke(this); });
         }
 
         private static CellColor GetRandomColor() => (CellColor)rnd.Next(Enum.GetValues(typeof(CellColor)).Length);
-       
-        private void mouseClick()
-        {
-            if (State == CellState.Current)
-            {
-                State = CellState.Pressed;
-                changed?.Invoke(this);
-            }
-        }
     }
 }
