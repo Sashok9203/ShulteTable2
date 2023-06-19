@@ -44,14 +44,16 @@ namespace ShulteTable2.ViewModels
 
         private void cellChangeed(object cell)
         {
-            CellVM? cCell = cell as CellVM;
-            cCell.Current = false;
-            CellVM? cNext = cells.FirstOrDefault(n => n.Number == cCell.Number + 1);
-            if (cNext != null) cNext.Current = true;
-            else
+            if (cell is CellVM currentCell)
             {
-                exit();
-                GenerateCells();
+                currentCell.Current = false;
+                CellVM? cNext = cells.FirstOrDefault(n => n.Number == currentCell.Number + 1);
+                if (cNext != null) cNext.Current = true;
+                else
+                {
+                    exit();
+                    GenerateCells();
+                }
             }
         }
 
